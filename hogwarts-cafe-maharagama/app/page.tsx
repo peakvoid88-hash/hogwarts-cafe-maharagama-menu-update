@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -27,6 +27,37 @@ type MenuItem = {
 };
 
 const categories = ["All", "Rice & Nasi", "Kottu", "Pasta & Noodles", "Burgers & Subs", "Short Eats", "Drinks", "Desserts"];
+
+type ReviewCard = { name: string; rating: number; detail: string; quote: string; summary: string; isSample?: boolean };
+
+// Three publicly listed excerpts plus 100 clearly labelled demo cards to preview the globe density.
+// The demo cards are placeholders, not published customer testimonials.
+const publishedReviewCards: ReviewCard[] = [
+  { name: "Vasana G.", rating: 3, detail: "Google · 4 months ago", quote: "The chai tea is really tasty and superb.", summary: "This reviewer praised the chai tea, while sharing mixed feedback about the pasta kottu and portion handling." },
+  { name: "Irshad J.", rating: 4, detail: "Google · 4 months ago", quote: "Food is tasty and portions are considerably bigger.", summary: "This reviewer highlighted tasty food, generous portions and helpful staff, while suggesting quicker table cleaning." },
+  { name: "Sathish D.", rating: 4, detail: "Google · 5 months ago", quote: "Great food, and the dishes were tasty.", summary: "This reviewer enjoyed the food and café, and suggested more staff training around menu knowledge and service." }
+];
+const sampleReviewQuotes = [
+  "Sample review card for the food and flavour.",
+  "A demo note about a relaxed café visit.",
+  "Placeholder feedback about generous portions.",
+  "Sample text showing how a short review looks.",
+  "Demo review about friendly service.",
+  "Placeholder comment about a favourite dish.",
+  "Sample feedback for the globe preview.",
+  "A demo card for the café atmosphere.",
+  "Placeholder review about drinks and desserts.",
+  "Sample text to test the expanded review view."
+];
+const sampleReviewCards: ReviewCard[] = Array.from({ length: 100 }, (_, index) => ({
+  name: `Sample guest ${String(index + 1).padStart(3, "0")}`,
+  rating: [4, 5, 4, 3, 5][index % 5],
+  detail: "Demo sample · placeholder",
+  quote: sampleReviewQuotes[index % sampleReviewQuotes.length],
+  summary: "This is placeholder content added to preview the 100-card globe. Replace it with a verified customer review before treating it as a real testimonial.",
+  isSample: true
+}));
+const reviewCards: ReviewCard[] = [...publishedReviewCards, ...sampleReviewCards];
 
 // Online menu prices were checked against Hogwarts Cafe's OrderNow and Uber Eats listings.
 // Platform prices may differ; items without a listed price are shown as "Ask café".
@@ -168,6 +199,12 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [query, setQuery] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [selectedReview, setSelectedReview] = useState<number | null>(null);
+  const [globeRotation, setGlobeRotation] = useState({ x: -8, y: 0 });
+  const [isGlobeManuallyRotated, setIsGlobeManuallyRotated] = useState(false);
+  const dragStart = useRef<{ x: number; y: number; rotationX: number; rotationY: number } | null>(null);
+  const globeRef = useRef<HTMLDivElement | null>(null);
+  const globeRotationRef = useRef({ x: -8, y: 0 });
 
   const filteredItems = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -410,13 +447,128 @@ export default function Home() {
         <p className="image-disclaimer">Gallery images are temporary design placeholders, not verified photos of this café.</p>
       </section>
 
-      <section className="review-section">
+      <section className="review-section" id="reviews">
         <div className="review-inner section-pad">
           <div className="review-ornament"><Sparkles size={22} /></div>
           <p className="eyebrow">A NOTE FROM OUR VISITORS</p>
-          <div className="rating-display"><span>4.1</span><div><div className="rating-stars" aria-label="4.1 out of 5 stars">★★★★<span>★</span></div><p>Google rating · 908 reviews, as supplied</p></div></div>
-          <blockquote>“A place for familiar favourites, new cravings and moments worth making time for.”</blockquote>
-          <p className="review-note">The quote above is original website copy, not a customer testimonial.</p>
+          <h2 className="review-heading">Reviews in <em>every direction.</em></h2>
+          <p className="review-intro">A living globe of visitor voices. Select any floating tile to bring it into focus.</p>
+          <div
+            className={`review-globe-stage${selectedReview !== null ? " is-review-open" : ""}${isGlobeManuallyRotated ? " is-manually-rotated" : ""}`}
+            role="region"
+            aria-label="Interactive 3D review globe. Drag up, down, left, or right to explore reviews."
+            tabIndex={0}
+            onPointerDown={(event) => {
+              // Let review buttons receive their own click events; pointer capture on
+              // the stage can otherwise swallow the click that opens the review.
+              if ((event.target as HTMLElement).closest(".review-orbit-card")) return;
+              if (selectedReview !== null) return;
+              dragStart.current = {
+                x: event.clientX,
+                y: event.clientY,
+                rotationX: globeRotationRef.current.x,
+                rotationY: globeRotationRef.current.y,
+              };
+              event.currentTarget.setPointerCapture(event.pointerId);
+              setGlobeRotation(globeRotationRef.current);
+              setIsGlobeManuallyRotated(true);
+            }}
+            onPointerMove={(event) => {
+              const start = dragStart.current;
+              if (!start) return;
+              const dx = event.clientX - start.x;
+              const dy = event.clientY - start.y;
+              // Update only the globe element while dragging; avoid re-rendering all 103 tiles per pointer event.
+              const nextRotation = {
+                x: Math.max(-75, Math.min(75, start.rotationX - dy * 0.45)),
+                y: start.rotationY + dx * 0.45,
+              };
+              globeRotationRef.current = nextRotation;
+              if (globeRef.current) {
+                globeRef.current.style.transform = `rotateX(${nextRotation.x}deg) rotateY(${nextRotation.y}deg)`;
+              }
+            }}
+            onPointerUp={() => { dragStart.current = null; setGlobeRotation(globeRotationRef.current); }}
+            onPointerCancel={() => { dragStart.current = null; setGlobeRotation(globeRotationRef.current); }}
+            onKeyDown={(event) => {
+              if (event.key === "ArrowLeft" || event.key === "ArrowRight" || event.key === "ArrowUp" || event.key === "ArrowDown") {
+                event.preventDefault();
+                setIsGlobeManuallyRotated(true);
+                setGlobeRotation((current) => {
+                  const nextRotation = {
+                    x: Math.max(-75, Math.min(75, current.x + (event.key === "ArrowUp" ? -12 : event.key === "ArrowDown" ? 12 : 0))),
+                    y: current.y + (event.key === "ArrowLeft" ? -18 : event.key === "ArrowRight" ? 18 : 0),
+                  };
+                  globeRotationRef.current = nextRotation;
+                  return nextRotation;
+                });
+              }
+            }}
+          >
+            <div className="review-globe-halo" aria-hidden="true" />
+            <div className="review-globe-lines" aria-hidden="true">
+              {Array.from({ length: 9 }, (_, index) => <span key={index} style={{ transform: `rotateY(${index * 20}deg)` }} />)}
+              <i />
+            </div>
+            <div
+              ref={globeRef}
+              className="review-globe"
+              style={{ transform: `rotateX(${globeRotation.x}deg) rotateY(${globeRotation.y}deg)` }}
+              aria-label="Rotating globe of customer reviews"
+            >
+              <div className="review-globe-spin-layer">
+              {reviewCards.map((review, index) => {
+                const y = 1 - (index / (reviewCards.length - 1)) * 2;
+                const theta = Math.PI * (3 - Math.sqrt(5)) * index;
+                // Round trig-derived values so server and browser serialize identical CSS
+                // during the initial render and avoid tiny hydration mismatches.
+                const latitude = Number((Math.asin(y) * 180 / Math.PI).toFixed(4));
+                const longitude = Number((theta * 180 / Math.PI).toFixed(4));
+                return (
+                  <button
+                    type="button"
+                    key={`${review.name}-${index}`}
+                    className={`review-orbit-card${selectedReview === index ? " is-selected" : ""}${review.isSample ? " is-sample" : " is-published"}`}
+                    style={{
+                      transform: `rotateY(${longitude}deg) rotateX(${-latitude}deg) translateZ(var(--review-radius))`,
+                    }}
+                    onClick={() => setSelectedReview(index)}
+                    aria-label={`Open ${review.isSample ? "demo sample" : "published"} review from ${review.name}`}
+                    title={`${review.name} · ${review.isSample ? "demo sample" : "published review"}`}
+                  >
+                    <span className="review-orbit-connector" aria-hidden="true" />
+                    <span className="review-tile-message">{review.quote.replace(/[“”"]/g, "").split(/\\s+/).slice(0, 4).join(" ")}</span>
+                  </button>
+                );
+              })}
+              </div>
+            </div>
+            <div className="review-globe-core" aria-hidden="true">
+              <span className="review-core-orbit" />
+              <Sparkles size={28} />
+              <span className="review-core-title">VISITOR<br />VOICES</span>
+            </div>
+            {selectedReview !== null && (
+              <div className="review-expanded-card" role="dialog" aria-modal="false" aria-label="Selected visitor review">
+                <button className="review-close" type="button" onClick={() => setSelectedReview(null)} aria-label="Close selected review"><X size={17} /></button>
+                <span className={`review-expanded-source${reviewCards[selectedReview].isSample ? " is-demo" : ""}`}>
+                  {reviewCards[selectedReview].isSample ? "DEMO SAMPLE · NOT A PUBLISHED REVIEW" : "PUBLICLY LISTED REVIEW"}
+                </span>
+                <div className="review-expanded-stars" aria-label={`${reviewCards[selectedReview].rating} out of 5 stars`}>
+                  {"★".repeat(reviewCards[selectedReview].rating)}<span>{"★".repeat(5 - reviewCards[selectedReview].rating)}</span>
+                </div>
+                <p className="review-expanded-quote">“{reviewCards[selectedReview].quote}”</p>
+                <div className="review-expanded-footer">
+                  <span className="review-avatar">{reviewCards[selectedReview].name.slice(0, 1)}</span>
+                  <span><strong>{reviewCards[selectedReview].name}</strong><small>{reviewCards[selectedReview].detail}</small></span>
+                </div>
+                <p className="review-expanded-summary">{reviewCards[selectedReview].summary}</p>
+              </div>
+            )}
+          </div>
+          <p className="review-controls"><span className="review-live-dot" /> AUTO-ROTATING GLOBE <span>·</span> DRAG TO LOOK AROUND <span>·</span> SELECT A MESSAGE TO EXPAND</p>
+          <div className="rating-display review-rating-display"><span>4.1</span><div><div className="rating-stars" aria-label="4.1 out of 5 stars">★★★★<span>★</span></div><p>Google rating · 904 reviews listed by Restaurant Guru</p></div></div>
+          <p className="review-note">The 100 extra cards are labelled demo samples for layout testing, not real customer reviews.</p>
           <a className="button button-outline" href="https://www.google.com/maps/place/Hogwarts+Cafe+Maharagama/@6.8455333,79.9318495,17.54z/data=!4m16!1m8!3m7!1s0x3ae2511c032bfe91:0xc54f71179b1ecd0e!2sHogwarts+Cafe+Maharagama!8m2!3d6.8444622!4d79.9338697!10e9!16s%2Fg%2F11tspn62cx!3m6!1s0x3ae2511c032bfe91:0xc54f71179b1ecd0e!8m2!3d6.8444622!4d79.9338697!10e9!16s%2Fg%2F11tspn62cx?entry=ttu&g_ep=EgoyMDI2MTAxOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer">Explore visitor reviews <ArrowUpRight size={16} /></a>
         </div>
       </section>

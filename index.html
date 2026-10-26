@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#17130f"><meta name="description" content="Explore the Hogwarts Cafe Maharagama menu, food and drinks, customer reviews and location."><title>Hogwarts Cafe Maharagama | A Little Magic, A Lot of Flavour</title><link rel="preconnect" href="https://images.unsplash.com"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+:root {
+  --espresso: #17130f;
+  --espresso-2: #211a14;
+  --espresso-3: #2c2118;
+  --gold: #d5b77d;
+  --gold-bright: #e6cc9b;
+  --ivory: #f3ecdf;
+  --paper: #e9dfcf;
+  --ink: #211a14;
+  --muted: #a99b88;
+  --line: rgba(213, 183, 125, .25);
+  --serif: "Playfair Display", Georgia, serif;
+  --sans: "DM Sans", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body { margin: 0; background: var(--espresso); color: var(--ivory); font-family: var(--sans); font-size: 14px; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 4px; }
+::selection { background: var(--gold); color: var(--espresso); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+.announcement { min-height: 32px; display: flex; justify-content: center; align-items: center; gap: 10px; padding: 7px 16px; background: #100d0a; color: #c9b99d; font-size: 9px; letter-spacing: .11em; text-transform: uppercase; }
+.announcement svg { color: var(--gold); }
+.announcement-dot { width: 3px; height: 3px; background: var(--gold); border-radius: 50%; }
+
+.site-header { height: 82px; padding: 0 7.2%; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 10; background: var(--espresso); border-bottom: 1px solid rgba(213,183,125,.13); }
+.brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; }
+.brand-mark { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid rgba(213,183,125,.65); border-radius: 50%; color: var(--gold); }
+.brand-copy { display: flex; flex-direction: column; gap: 3px; }
+.brand-name { font-family: var(--serif); font-size: 20px; letter-spacing: -.04em; line-height: 1; }
+.brand-name i { color: var(--gold); font-weight: 400; }
+.brand-location { font-size: 8px; letter-spacing: .25em; color: #a99b88; }
+.main-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 42px); color: #d2c7b6; font-size: 11px; }
+.main-nav > a:not(.nav-cta) { transition: color .2s ease; }
+.main-nav > a:not(.nav-cta):hover { color: var(--gold-bright); }
+.nav-cta { display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(213,183,125,.6); padding: 12px 15px; color: var(--gold-bright); transition: background .2s, color .2s; }
+.nav-cta:hover { background: var(--gold); color: var(--espresso); }
+.mobile-menu-toggle { display: none; background: transparent; color: var(--gold); border: 1px solid var(--line); padding: 8px; }
+
+.hero { min-height: min(760px, calc(100svh - 114px)); min-height: 650px; position: relative; overflow: hidden; display: flex; align-items: center; background: #1b1510; isolation: isolate; }
+.hero-image-wrap, .hero-shade { position: absolute; inset: 0; z-index: -2; }
+.hero-image { object-fit: cover; object-position: center 54%; filter: saturate(.7); animation: heroReveal 1.1s ease-out both; }
+.hero-shade { z-index: -1; background: linear-gradient(90deg, rgba(18,13,9,.94) 0%, rgba(18,13,9,.8) 39%, rgba(18,13,9,.32) 72%, rgba(18,13,9,.23) 100%), linear-gradient(0deg, rgba(18,13,9,.72), transparent 36%, rgba(18,13,9,.12)); }
+.page-gutter { padding-left: 11.5%; padding-right: 8%; }
+.hero-content { width: min(770px, 76%); padding-top: 22px; animation: contentReveal .8s .12s ease-out both; }
+.eyebrow { display: flex; align-items: center; gap: 10px; color: var(--gold); font-size: 9px; letter-spacing: .23em; line-height: 1.7; font-weight: 600; }
+.eyebrow-line { width: 26px; height: 1px; display: inline-block; background: var(--gold); }
+.hero h1 { margin: 26px 0 22px; font-family: var(--serif); font-weight: 400; font-size: clamp(54px, 7.3vw, 100px); letter-spacing: -.065em; line-height: .99; }
+h1 em, h2 em { color: var(--gold); font-weight: 400; }
+.hero-description { max-width: 440px; color: #d0c5b6; font-size: 13px; line-height: 1.9; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; margin-top: 30px; }
+.button { min-height: 46px; display: inline-flex; justify-content: center; align-items: center; gap: 17px; padding: 0 19px; font-size: 10px; font-weight: 600; letter-spacing: .025em; transition: transform .2s ease, background .2s ease, color .2s ease; }
+.button:hover { transform: translateY(-2px); }
+.button-gold { background: var(--gold); color: #21180f; border: 1px solid var(--gold); }
+.button-gold:hover { background: var(--gold-bright); }
+.button-quiet { border: 1px solid rgba(243,236,223,.45); color: var(--ivory); }
+.button-quiet:hover { border-color: var(--gold); color: var(--gold-bright); }
+.hero-note { display: flex; align-items: center; gap: 9px; margin-top: 43px; color: #c1b29e; font-size: 10px; letter-spacing: .025em; }
+.hero-note-icon { display: grid; place-items: center; color: var(--gold); }
+.hero-index { position: absolute; bottom: 34px; left: 7.2%; display: flex; align-items: center; gap: 10px; font-size: 8px; letter-spacing: .2em; color: #b3a38e; }
+.hero-index > span:first-child { color: var(--gold); }
+.hero-index-rule { width: 42px; height: 1px; background: var(--gold); }
+.scroll-cue { position: absolute; bottom: 34px; right: 7.2%; display: flex; align-items: center; gap: 10px; color: #c8bba9; font-size: 8px; letter-spacing: .18em; }
+.scroll-cue svg { color: var(--gold); }
+
+.section-pad { padding-left: 11.5%; padding-right: 11.5%; }
+.intro { padding-top: 106px; padding-bottom: 76px; background: var(--paper); color: var(--ink); }
+.intro-kicker { display: flex; align-items: center; gap: 10px; color: #725a38; font-size: 9px; letter-spacing: .2em; }
+.small-star { font-size: 18px; color: #9b783e; }
+.intro-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 8%; align-items: end; margin-top: 31px; }
+.intro h2, .section-heading h2, .menu-topline h2, .experience-heading h2, .visit-copy h2, .closing-cta h2 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 4.6vw, 61px); letter-spacing: -.055em; line-height: 1.12; }
+.intro h2 em, .section-heading h2 em, .experience-heading h2 em, .visit-copy h2 em { color: #94703b; }
+.intro-copy { max-width: 440px; padding-bottom: 5px; }
+.intro-copy p { color: #66584a; font-size: 12px; line-height: 2; margin: 0 0 19px; }
+.text-link { display: inline-flex; align-items: center; gap: 10px; padding: 0; border: 0; background: transparent; color: #9b783e; font-size: 10px; font-weight: 600; cursor: pointer; }
+.text-link:hover { color: #5c4020; }
+.feature-strip { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(33,26,20,.2); display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.feature-item { display: flex; align-items: center; gap: 13px; font-family: var(--serif); font-size: 17px; }
+.feature-number { font-family: var(--sans); color: #98794b; font-size: 9px; letter-spacing: .1em; }
+.feature-symbol { margin-left: auto; color: #9b783e; font-size: 14px; }
+
+.favourites { padding-top: 106px; padding-bottom: 103px; background: #f6f0e6; color: var(--ink); }
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 39px; }
+.eyebrow-dark { color: #94703b; margin: 0 0 18px; }
+.section-heading h2 { font-size: clamp(38px, 4.2vw, 55px); }
+.section-heading > .text-link { margin-bottom: 7px; }
+.favourite-grid { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 17px; align-items: start; }
+.favourite-card { min-width: 0; }
+.favourite-photo { position: relative; overflow: hidden; aspect-ratio: 1.08 / 1; background: #d7c8b2; }
+.favourite-card-tall .favourite-photo { aspect-ratio: .86 / 1; }
+.favourite-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(22,15,9,.43), transparent 45%); pointer-events: none; }
+.favourite-photo img { object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.favourite-card:hover .favourite-photo img { transform: scale(1.045); }
+.photo-label { position: absolute; z-index: 1; bottom: 17px; left: 17px; color: white; font-size: 8px; letter-spacing: .19em; }
+.favourite-caption { display: flex; justify-content: space-between; align-items: center; padding: 17px 0 0; color: #8b6936; }
+.card-index { font-size: 8px; color: #9a805b; letter-spacing: .15em; }
+.favourite-caption h3 { font-family: var(--serif); font-size: 20px; font-weight: 400; margin: 7px 0 0; color: #2b2118; }
+.image-disclaimer { font-size: 9px; color: #92816b; margin: 24px 0 0; line-height: 1.7; }
+
+.menu-section { padding-top: 106px; padding-bottom: 108px; background: var(--espresso); }
+.menu-topline { display: flex; justify-content: space-between; align-items: end; gap: 28px; }
+.menu-topline .eyebrow { margin: 0 0 18px; }
+.menu-topline h2 { font-size: clamp(47px, 5.3vw, 69px); }
+.menu-intro { max-width: 470px; color: #b9ac99; font-size: 12px; line-height: 1.9; margin: 17px 0 0; }
+.menu-order-links { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 19px; }
+.menu-order-links a { display: inline-flex; align-items: center; gap: 6px; color: var(--gold); font-size: 10px; border-bottom: 1px solid rgba(213,183,125,.4); padding-bottom: 5px; transition: color .2s ease, border-color .2s ease; }
+.menu-order-links a:hover { color: var(--ivory); border-color: var(--ivory); }
+.menu-stamp { width: 100px; height: 100px; border: 1px solid rgba(213,183,125,.55); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--gold); text-align: center; flex-shrink: 0; transform: rotate(8deg); }
+.menu-stamp span { font-size: 7px; letter-spacing: .14em; line-height: 1.6; }
+.menu-controls { margin-top: 42px; padding: 17px 0; display: flex; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.category-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.category-pill { background: transparent; border: 1px solid rgba(213,183,125,.28); color: #c7b9a6; padding: 9px 12px; font-size: 9px; cursor: pointer; transition: all .2s ease; }
+.category-pill:hover, .category-pill.active { background: var(--gold); border-color: var(--gold); color: #20170f; }
+.menu-search { display: flex; align-items: center; gap: 8px; min-width: 190px; padding: 9px 11px; border-bottom: 1px solid rgba(213,183,125,.45); color: var(--gold); }
+.menu-search input { width: 100%; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--ivory); font-size: 10px; }
+.menu-search input::placeholder { color: #9e907e; }
+.menu-search button { display: grid; place-items: center; background: none; border: 0; color: var(--gold); cursor: pointer; }
+.menu-results-line { display: flex; justify-content: space-between; gap: 16px; margin: 17px 0 0; color: #998b78; font-size: 9px; letter-spacing: .04em; }
+.menu-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px 18px; margin-top: 22px; }
+.menu-item { min-width: 0; overflow: hidden; border: 1px solid rgba(213,183,125,.17); background: rgba(255,255,255,.025); transition: border-color .25s ease, transform .25s ease, background .25s ease; }
+.menu-item:hover { transform: translateY(-4px); border-color: rgba(213,183,125,.52); background: rgba(255,255,255,.045); }
+.menu-item-photo { position: relative; width: 100%; aspect-ratio: 1.28 / 1; overflow: hidden; background: #33271c; }
+.menu-item-photo img { object-fit: cover; transition: transform .55s cubic-bezier(.2,.7,.2,1); }
+.menu-item:hover .menu-item-photo img { transform: scale(1.055); }
+.menu-item-photo::after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(0deg, rgba(17,12,8,.42), transparent); pointer-events: none; }
+.menu-item-number { position: absolute; z-index: 1; left: 12px; bottom: 10px; color: #fff0d8; font-size: 9px; letter-spacing: .12em; text-shadow: 0 1px 6px rgba(0,0,0,.5); }
+.menu-item-copy { padding: 15px 15px 16px; }
+.menu-item-title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.menu-item h3 { margin: 0; font-family: var(--serif); font-size: 18px; line-height: 1.3; font-weight: 400; color: #f1e7d8; }
+.menu-item-copy p { margin: 8px 0 15px; min-height: 34px; color: #a99b88; font-size: 10px; line-height: 1.7; }
+.menu-item-meta { display: flex; justify-content: space-between; align-items: end; gap: 8px; padding-top: 12px; border-top: 1px solid rgba(213,183,125,.14); }
+.menu-item-category { color: #b79a67; font-size: 8px; letter-spacing: .1em; text-transform: uppercase; }
+.popular-tag { display: inline-flex; align-items: center; gap: 4px; color: var(--gold); border: 1px solid rgba(213,183,125,.36); padding: 4px 6px; font-size: 8px; white-space: nowrap; }
+.menu-price { text-align: right; color: var(--gold); font-size: 11px; line-height: 1.5; white-space: nowrap; font-weight: 600; }
+.empty-state { grid-column: 1 / -1; text-align: center; padding: 65px 20px; color: #b9ac99; }
+.empty-state svg { color: var(--gold); }
+.empty-state h3 { font-family: var(--serif); font-size: 25px; font-weight: 400; color: var(--ivory); }
+.empty-state p { font-size: 11px; }
+.menu-footnote { color: #968774; font-size: 9px; line-height: 1.8; margin-top: 30px; }
+
+.experience { padding-top: 106px; padding-bottom: 104px; background: var(--paper); color: var(--ink); }
+.experience-heading { display: flex; align-items: end; justify-content: space-between; gap: 35px; margin-bottom: 37px; }
+.experience-heading .eyebrow { color: #94703b; margin: 0 0 18px; }
+.experience-heading h2 { font-size: clamp(38px, 4.4vw, 59px); }
+.experience-heading > p { max-width: 300px; color: #66584a; font-size: 11px; line-height: 1.9; margin: 0 0 5px; }
+.experience-gallery { display: grid; grid-template-columns: 1.35fr .65fr; gap: 17px; }
+.gallery-main, .gallery-small { position: relative; overflow: hidden; background: #cdbda5; }
+.gallery-main { min-height: 420px; }
+.gallery-main img, .gallery-small img { object-fit: cover; }
+.gallery-main::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(18,13,9,.52), transparent 48%); }
+.gallery-caption { position: absolute; z-index: 1; bottom: 22px; left: 24px; color: white; font-size: 8px; letter-spacing: .2em; }
+.gallery-side { display: grid; grid-template-rows: 1fr 1fr; gap: 17px; }
+.gallery-small { min-height: 195px; }
+.gallery-quote { background: #ded0bb; padding: 22px 24px; display: flex; flex-direction: column; justify-content: center; min-height: 195px; }
+.quote-mark { font-family: var(--serif); font-size: 38px; color: #a17c43; line-height: .7; }
+.gallery-quote p { font-family: var(--serif); font-size: clamp(18px, 2vw, 25px); line-height: 1.3; color: #34271b; margin: 12px 0 17px; }
+.quote-credit { font-size: 7px; letter-spacing: .18em; color: #8b704b; }
+
+.review-section { position: relative; background: #221a13; overflow: hidden; isolation: isolate; }
+.review-section::before, .review-section::after { content: "✳"; position: absolute; color: rgba(213,183,125,.08); font-size: 280px; line-height: 1; pointer-events: none; z-index: -1; }
+.review-section::before { left: -70px; top: -40px; }
+.review-section::after { right: -55px; bottom: -110px; }
+.review-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding-top: 86px; padding-bottom: 91px; text-align: center; }
+.review-ornament { width: 45px; height: 45px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; margin: 0 auto 20px; color: var(--gold); }
+.review-inner .eyebrow { justify-content: center; }
+.review-heading { color: var(--ivory); font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 4.3vw, 56px); line-height: 1.1; margin: 10px 0 13px; }
+.review-heading em { color: var(--gold-bright); }
+.review-intro { max-width: 430px; margin: 0 auto; color: #b7a995; font-size: 11px; line-height: 1.8; }
+.review-globe-stage { position: relative; width: 100%; max-width: 1040px; height: 650px; margin: 2px auto 0; perspective: 1500px; outline: none; isolation: isolate; cursor: grab; touch-action: pan-y; user-select: none; }
+.review-globe-stage:active { cursor: grabbing; }
+.review-globe-halo { position: absolute; width: 610px; height: 610px; border-radius: 50%; left: 50%; top: 49%; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(213,183,125,.18), rgba(213,183,125,.055) 55%, transparent 73%); filter: blur(2px); }
+.review-globe-lines { position: absolute; width: 540px; height: 540px; left: 50%; top: 49%; transform: translate(-50%,-50%); transform-style: preserve-3d; border: 1px solid rgba(213,183,125,.18); border-radius: 50%; animation: review-lines-spin 65s linear infinite; pointer-events: none; }
+.review-globe-lines span, .review-globe-lines i { position: absolute; inset: 0; display: block; border: 1px solid rgba(213,183,125,.17); border-radius: 50%; }
+.review-globe-lines i { transform: rotateX(90deg); border-color: rgba(213,183,125,.22); }
+.review-globe-stage.is-review-open .review-globe-lines, .review-globe-stage.is-review-open .review-globe-spin-layer { animation-play-state: paused; }
+.review-globe { --review-radius: 270px; position: absolute; z-index: 2; left: 50%; top: 49%; width: 0; height: 0; transform-style: preserve-3d; transition: transform 90ms linear; }
+.review-globe-spin-layer { position: absolute; inset: 0; transform-style: preserve-3d; animation: review-globe-spin 65s linear infinite; }
+.review-globe-stage.is-manually-rotated .review-globe-spin-layer { animation-play-state: running; }
+.review-orbit-card { position: absolute; top: -18px; left: -46px; width: 92px; height: 36px; padding: 4px 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(222,190,132,.65); border-radius: 7px; background: linear-gradient(145deg, rgba(40,31,23,.97), rgba(18,15,12,.99)); color: #f4dfb6; box-shadow: 0 0 12px rgba(213,183,125,.16); backface-visibility: hidden; cursor: pointer; transition: width 220ms, height 220ms, margin 220ms, box-shadow 220ms, background 220ms; }
+.review-orbit-card:hover, .review-orbit-card:focus-visible { z-index: 4; width: 104px; height: 42px; margin: -3px -6px; border-color: #fff0c9; box-shadow: 0 0 24px rgba(255,218,148,.55); outline: none; background: linear-gradient(145deg, rgba(92,69,41,.98), rgba(37,27,18,.99)); }
+.review-orbit-card.is-sample { background: linear-gradient(145deg, rgba(57,45,32,.97), rgba(25,21,17,.99)); }
+.review-orbit-card.is-published { background: linear-gradient(145deg, rgba(118,85,42,.98), rgba(50,36,22,.99)); border-color: rgba(255,235,190,.95); }
+.review-tile-message { display: block; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; font-size: 9px; line-height: 1.2; font-weight: 600; letter-spacing: -.015em; }
+.review-globe-core { position: absolute; z-index: 1; left: 50%; top: 49%; transform: translate(-50%,-50%); width: 178px; height: 178px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--gold-bright); border: 1px solid rgba(213,183,125,.52); background: radial-gradient(circle at 35% 25%, #59442d, #21180f 72%); box-shadow: inset -20px -22px 38px rgba(0,0,0,.3), inset 0 0 32px rgba(213,183,125,.14), 0 0 65px rgba(213,183,125,.22); pointer-events: none; }
+.review-globe-core::before, .review-globe-core::after { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(213,183,125,.22); border-radius: 50%; transform: rotateY(55deg); }
+.review-globe-core::after { transform: rotateY(-55deg); }
+.review-core-orbit { position: absolute; inset: -8px; border: 1px solid rgba(213,183,125,.18); border-radius: 50%; transform: rotateX(70deg); }
+.review-core-title { font-size: 8px; line-height: 1.6; letter-spacing: .22em; }
+.review-expanded-card { position: absolute; z-index: 6; left: 50%; top: 49%; width: min(360px, calc(100% - 36px)); min-height: 240px; padding: 28px 25px 22px; transform: translate(-50%,-50%); text-align: left; border: 1px solid rgba(222,190,132,.58); border-radius: 17px; background: linear-gradient(145deg, rgba(57,43,30,.98), rgba(28,22,17,.99)); color: var(--ivory); box-shadow: 0 25px 90px rgba(0,0,0,.62), 0 0 42px rgba(213,183,125,.14); animation: reviewNoteIn 300ms ease both; }
+.review-close { position: absolute; right: 11px; top: 11px; width: 29px; height: 29px; display: grid; place-items: center; border: 1px solid rgba(213,183,125,.3); border-radius: 50%; background: transparent; color: var(--gold-bright); cursor: pointer; }
+.review-close:hover { background: rgba(213,183,125,.13); }
+.review-expanded-source { display: inline-block; padding: 5px 8px; border: 1px solid rgba(213,183,125,.3); border-radius: 4px; color: var(--gold-bright); font-size: 7px; letter-spacing: .12em; }
+.review-expanded-source.is-demo { color: #c6b8a0; border-color: rgba(198,184,160,.3); }
+.review-expanded-stars { margin-top: 16px; color: var(--gold-bright); font-size: 13px; letter-spacing: 2px; }
+.review-expanded-stars span { color: #6d5b43; }
+.review-expanded-quote { margin: 8px 0 18px; font-family: var(--serif); font-size: 23px; line-height: 1.28; }
+.review-expanded-footer { display: flex; align-items: center; gap: 10px; color: #d6c4aa; }
+.review-expanded-footer > span:last-child { display: grid; gap: 4px; }
+.review-expanded-footer strong { font-size: 10px; font-weight: 500; }
+.review-expanded-footer small { color: #a99b88; font-size: 8px; }
+.review-expanded-summary { margin: 13px 0 0; padding-top: 12px; border-top: 1px solid rgba(213,183,125,.18); color: #b7a995; font-size: 9px; line-height: 1.7; }
+.review-avatar { display: grid; place-items: center; width: 31px; height: 31px; flex: 0 0 31px; border-radius: 50%; background: rgba(213,183,125,.15); border: 1px solid rgba(213,183,125,.35); color: var(--gold-bright); font-family: var(--serif); }
+.review-controls { display: flex; justify-content: center; align-items: center; gap: 9px; margin: -8px auto 0; color: #cbb89a; font-size: 8px; letter-spacing: .16em; }
+.review-live-dot { width: 6px; height: 6px; border-radius: 50%; background: #d5b77d; box-shadow: 0 0 12px rgba(213,183,125,.65); animation: reviewPulse 1.8s ease-in-out infinite; }
+@keyframes review-globe-spin { from { transform: rotateX(-10deg) rotateY(0deg); } to { transform: rotateX(-10deg) rotateY(360deg); } }
+@keyframes review-lines-spin { from { transform: translate(-50%,-50%) rotateY(0deg); } to { transform: translate(-50%,-50%) rotateY(360deg); } }
+@keyframes reviewPulse { 50% { opacity: .35; } }
+@keyframes reviewNoteIn { from { opacity: 0; transform: translate(-50%,-46%); } to { opacity: 1; transform: translate(-50%,-50%); } }
+.rating-display { display: flex; justify-content: center; align-items: center; gap: 16px; margin: 28px 0 17px; }
+.rating-display > span { font-family: var(--serif); font-size: 53px; color: var(--gold-bright); letter-spacing: -.06em; }
+.rating-display > div { text-align: left; }
+.rating-stars { color: var(--gold); letter-spacing: 3px; font-size: 15px; }
+.rating-stars span { color: #8d7b5d; }
+.rating-display p { margin: 5px 0 0; color: #a99b88; font-size: 9px; }
+.review-note { color: #9c8c77; font-size: 9px; margin-bottom: 25px; }
+.button-outline { border: 1px solid rgba(213,183,125,.65); color: var(--gold-bright); }
+.button-outline:hover { background: var(--gold); color: var(--espresso); }
+
+.visit-section { display: grid; grid-template-columns: .9fr 1.1fr; gap: 8%; align-items: center; padding-top: 105px; padding-bottom: 110px; background: var(--paper); color: var(--ink); }
+.visit-copy .eyebrow { color: #94703b; margin: 0 0 19px; }
+.visit-copy h2 { font-size: clamp(38px, 4.2vw, 56px); }
+.visit-description { max-width: 350px; margin: 18px 0 28px; color: #66584a; font-size: 11px; line-height: 1.9; }
+.visit-detail { display: flex; gap: 13px; margin: 20px 0; }
+.visit-icon { flex-shrink: 0; display: grid; place-items: center; width: 37px; height: 37px; border: 1px solid rgba(148,112,59,.4); color: #94703b; }
+.visit-detail strong { display: block; margin: 0 0 5px; color: #30251b; font-size: 11px; }
+.visit-detail p, .visit-detail a { display: block; margin: 0; color: #6e5e4d; font-size: 10px; line-height: 1.7; }
+.visit-detail a { color: #8d6833; }
+.visit-detail .detail-note { color: #9b8a75; font-size: 9px; }
+.visit-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; margin-top: 28px; }
+.button-dark { background: #211910; color: var(--ivory); border: 1px solid #211910; }
+.button-dark:hover { background: #493520; }
+.map-card { border: 1px solid rgba(33,26,20,.18); background: #f7f0e4; padding: 16px; }
+.map-card-top { display: flex; align-items: center; gap: 11px; padding: 3px 4px 16px; }
+.map-pin-icon { display: grid; place-items: center; width: 39px; height: 39px; background: #e7d7bb; color: #8f6a36; }
+.map-card-top strong { font-family: var(--serif); font-size: 18px; font-weight: 400; }
+.map-card-top p { color: #8d7b66; font-size: 9px; margin: 4px 0 0; }
+.map-visual { position: relative; height: 340px; overflow: hidden; background: #e2d8c5; }
+.map-grid-lines { position: absolute; inset: 0; background-image: linear-gradient(rgba(112,95,69,.11) 1px, transparent 1px), linear-gradient(90deg, rgba(112,95,69,.11) 1px, transparent 1px); background-size: 35px 35px; }
+.map-road { position: absolute; height: 20px; background: #f7f0e4; border: 1px solid rgba(154,132,98,.17); transform-origin: center; }
+.road-one { width: 140%; left: -20%; top: 48%; transform: rotate(-18deg); }
+.road-two { width: 110%; left: -5%; top: 22%; transform: rotate(56deg); }
+.road-three { width: 100%; left: 6%; top: 76%; transform: rotate(32deg); height: 12px; }
+.road-four { width: 90%; left: 26%; top: 14%; transform: rotate(103deg); height: 12px; }
+.map-park { position: absolute; right: 9%; top: 9%; width: 90px; height: 76px; background: #c7d0b0; border-radius: 50% 36% 45% 30%; transform: rotate(-17deg); opacity: .8; }
+.map-pin { position: absolute; top: 43%; left: 49%; color: #a77b3b; filter: drop-shadow(0 3px 2px rgba(0,0,0,.16)); }
+.map-label { position: absolute; color: #8e7a5e; font-size: 7px; letter-spacing: .15em; }
+.map-label-one { top: 60%; left: 14%; transform: rotate(-18deg); }
+.map-label-two { bottom: 12%; right: 10%; }
+.map-open { display: flex; justify-content: space-between; align-items: center; padding: 15px 5px 2px; color: #8e6c39; font-size: 10px; font-weight: 600; }
+
+.closing-cta { padding: 82px 20px 88px; text-align: center; background: #17120e; border-top: 1px solid var(--line); }
+.closing-star { color: var(--gold); font-size: 25px; margin-bottom: 17px; }
+.closing-cta .eyebrow { justify-content: center; margin: 0 0 17px; }
+.closing-cta h2 { font-size: clamp(43px, 5vw, 65px); margin-bottom: 28px; }
+.site-footer { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; gap: 20px; padding: 27px 7.2% 23px; background: #100d0a; color: #a99b88; }
+.footer-brand .brand-mark { width: 36px; height: 36px; }
+.footer-brand .brand-name { font-size: 17px; }
+.footer-brand .brand-location { font-size: 7px; }
+.site-footer > p { text-align: center; font-family: var(--serif); font-style: italic; font-size: 13px; color: #c6b49a; }
+.footer-links { display: flex; justify-content: end; gap: 18px; font-size: 9px; }
+.footer-links a:hover { color: var(--gold); }
+.copyright { grid-column: 1 / -1; border-top: 1px solid rgba(213,183,125,.15); padding-top: 17px; text-align: center; color: #766b5d; font-size: 8px; letter-spacing: .04em; }
+.mobile-order-bar { display: none; }
+
+@keyframes heroReveal { from { transform: scale(1.035); opacity: .65; } to { transform: scale(1); opacity: 1; } }
+@keyframes contentReveal { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+@media (min-width: 1500px) {
+  .hero { min-height: 740px; }
+  .page-gutter { padding-left: max(11.5%, calc((100vw - 1160px) / 2)); }
+  .section-pad { padding-left: max(11.5%, calc((100vw - 1160px) / 2)); padding-right: max(11.5%, calc((100vw - 1160px) / 2)); }
+}
+@media (max-width: 1050px) {
+  .site-header { padding: 0 5%; }
+  .main-nav { gap: 19px; }
+  .section-pad { padding-left: 7%; padding-right: 7%; }
+  .page-gutter { padding-left: 8%; }
+  .hero-content { width: 82%; }
+  .menu-controls { align-items: flex-start; flex-direction: column; }
+  .menu-search { width: 100%; max-width: 340px; }
+  .visit-section { gap: 5%; }
+  .site-footer { padding-left: 5%; padding-right: 5%; }
+}
+@media (max-width: 760px) {
+  html { scroll-padding-top: 72px; }
+  .announcement { gap: 7px; font-size: 7px; letter-spacing: .07em; min-height: 29px; }
+  .site-header { height: 70px; padding: 0 5%; }
+  .brand-mark { width: 37px; height: 37px; }
+  .brand-name { font-size: 18px; }
+  .mobile-menu-toggle { display: grid; place-items: center; }
+  .main-nav { display: none; position: absolute; top: 69px; left: 0; right: 0; padding: 18px 5% 24px; background: #17130f; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; }
+  .main-nav.is-open { display: flex; }
+  .main-nav > a:not(.nav-cta) { padding: 13px 0; border-bottom: 1px solid rgba(213,183,125,.12); }
+  .nav-cta { margin-top: 14px; justify-content: center; }
+  .hero { min-height: 680px; min-height: calc(88svh - 29px); max-height: 790px; align-items: center; }
+  .hero-image { object-position: 60% center; }
+  .hero-shade { background: linear-gradient(90deg, rgba(18,13,9,.88), rgba(18,13,9,.58)), linear-gradient(0deg, rgba(18,13,9,.68), transparent 65%); }
+  .page-gutter { padding-left: 7%; padding-right: 7%; }
+  .hero-content { width: 100%; padding-top: 0; }
+  .hero h1 { font-size: clamp(53px, 13vw, 76px); margin: 23px 0 19px; }
+  .hero-description { max-width: 370px; font-size: 12px; }
+  .hero-note { margin-top: 31px; font-size: 9px; }
+  .hero-index { left: 7%; bottom: 23px; }
+  .scroll-cue { right: 7%; bottom: 23px; font-size: 7px; }
+  .section-pad { padding-left: 7%; padding-right: 7%; }
+  .intro, .favourites, .menu-section, .experience, .visit-section { padding-top: 73px; padding-bottom: 74px; }
+  .intro-grid { grid-template-columns: 1fr; gap: 22px; margin-top: 25px; }
+  .intro h2, .section-heading h2, .experience-heading h2, .visit-copy h2 { font-size: clamp(38px, 10vw, 51px); }
+  .intro-copy { max-width: 100%; }
+  .feature-strip { margin-top: 42px; grid-template-columns: 1fr; gap: 0; }
+  .feature-item { padding: 15px 0; border-bottom: 1px solid rgba(33,26,20,.13); font-size: 16px; }
+  .section-heading { align-items: flex-start; flex-direction: column; margin-bottom: 27px; gap: 18px; }
+  .favourite-grid { grid-template-columns: 1fr 1fr; gap: 23px 12px; }
+  .favourite-card-tall { grid-column: 1 / -1; }
+  .favourite-card-tall .favourite-photo { aspect-ratio: 1.15 / 1; }
+  .favourite-photo { aspect-ratio: .9 / 1; }
+  .favourite-caption h3 { font-size: 16px; }
+  .favourite-caption { padding-top: 12px; }
+  .menu-topline { align-items: flex-start; }
+  .menu-topline h2 { font-size: 54px; }
+  .menu-stamp { width: 73px; height: 73px; margin-top: 16px; }
+  .menu-stamp svg { width: 14px; }
+  .menu-stamp span { font-size: 5px; }
+  .menu-intro { font-size: 11px; }
+  .menu-controls { margin-top: 28px; gap: 14px; }
+  .category-list { gap: 6px; }
+  .category-pill { padding: 9px 10px; font-size: 9px; }
+  .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 12px; }
+  .menu-item-copy { padding: 12px 11px 13px; }
+  .menu-item h3 { font-size: 16px; }
+  .menu-item-copy p { font-size: 9px; min-height: 45px; }
+  .menu-item-meta { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .menu-price { text-align: left; }
+  .experience-heading { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .experience-heading > p { max-width: 100%; }
+  .experience-gallery { grid-template-columns: 1fr; gap: 12px; }
+  .gallery-main { min-height: 300px; }
+  .gallery-side { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; gap: 12px; }
+  .gallery-small, .gallery-quote { min-height: 190px; }
+  .gallery-quote { padding: 17px; }
+  .gallery-quote p { font-size: 19px; }
+  .review-inner { padding-top: 69px; padding-bottom: 72px; }
+  .rating-display > span { font-size: 46px; }
+  .review-globe-stage { height: 430px; margin-top: 4px; }
+  .review-globe-lines { width: 320px; height: 320px; }
+  .review-globe-halo { width: 365px; height: 365px; }
+  .review-globe { --review-radius: 158px; }
+  .review-orbit-card { width: 18px; height: 18px; top: -9px; left: -9px; border-radius: 5px; }
+  .review-orbit-card:hover, .review-orbit-card:focus-visible { width: 24px; height: 24px; margin: -3px; }
+  .review-globe-core { width: 126px; height: 126px; gap: 8px; }
+  .review-core-title { font-size: 7px; }
+  .review-expanded-card { width: min(330px, calc(100% - 28px)); padding: 25px 18px 18px; min-height: 225px; }
+  .review-expanded-quote { font-size: 20px; }
+  .review-controls { gap: 7px; font-size: 7px; letter-spacing: .1em; }
+  .review-rating-display { margin-top: 25px; }
+  .visit-section { grid-template-columns: 1fr; gap: 40px; }
+  .map-visual { height: 290px; }
+  .closing-cta { padding: 69px 7% 74px; }
+  .site-footer { grid-template-columns: 1fr 1fr; gap: 15px; padding: 25px 6% 82px; }
+  .site-footer > p { display: none; }
+  .footer-links { gap: 13px; }
+  .copyright { line-height: 1.8; }
+  .mobile-order-bar { position: fixed; z-index: 20; left: 12px; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; background: var(--gold); color: #21180f; font-size: 11px; font-weight: 700; box-shadow: 0 8px 30px rgba(0,0,0,.25); }
+}
+@media (max-width: 390px) {
+  .menu-grid { grid-template-columns: 1fr; }
+  .menu-item-copy p { min-height: 0; }
+  .menu-item-meta { flex-direction: row; align-items: end; }
+  .menu-price { text-align: right; }
+  .announcement { font-size: 6px; }
+  .hero h1 { font-size: 50px; }
+  .eyebrow { font-size: 8px; letter-spacing: .16em; }
+  .hero-actions { align-items: stretch; flex-direction: column; max-width: 250px; }
+  .hero-actions .button { justify-content: space-between; }
+  .hero-index { font-size: 7px; }
+  .scroll-cue span { display: none; }
+  .menu-stamp { display: none; }
+  .gallery-side { grid-template-columns: 1fr; }
+  .gallery-small { min-height: 210px; }
+  .gallery-quote { min-height: 160px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .review-globe, .review-globe-lines { animation: none !important; }
+  .review-live-dot { animation: none !important; }
+  .review-expanded-card { animation: none !important; }
+}
+
+
+/* Review globe controls: larger readable tiles, with a touch-friendly globe on smaller screens. */
+@media (max-width: 700px) {
+  .review-globe-stage { height: 500px; perspective: 1050px; }
+  .review-globe-halo { width: 420px; height: 420px; }
+  .review-globe-lines { width: 390px; height: 390px; }
+  .review-globe { --review-radius: 190px; }
+  .review-orbit-card { width: 76px; height: 32px; top: -16px; left: -38px; padding: 3px 4px; }
+  .review-orbit-card:hover, .review-orbit-card:focus-visible { width: 84px; height: 36px; margin: -2px -4px; }
+  .review-tile-message { font-size: 8px; }
+  .review-globe-core { width: 142px; height: 142px; }
+}
+@media (max-width: 430px) {
+  .review-globe-stage { height: 420px; }
+  .review-globe-halo { width: 330px; height: 330px; }
+  .review-globe-lines { width: 310px; height: 310px; }
+  .review-globe { --review-radius: 150px; }
+  .review-orbit-card { width: 66px; height: 28px; top: -14px; left: -33px; padding: 2px 3px; }
+  .review-orbit-card:hover, .review-orbit-card:focus-visible { width: 74px; height: 32px; margin: -2px -4px; }
+  .review-tile-message { font-size: 7px; }
+  .review-globe-core { width: 116px; height: 116px; gap: 8px; }
+}
+
+/* Standalone HTML edition */
+[hidden]{display:none!important}
+.menu-controls{display:grid;gap:18px}.category-list{display:flex;gap:8px;flex-wrap:wrap}.category-pill{cursor:pointer}.menu-search{display:flex;align-items:center;gap:10px;max-width:360px;border:1px solid var(--line);padding:12px 14px;color:var(--gold)}.menu-search input{width:100%;background:transparent;border:0;outline:0;color:var(--ivory)}.menu-count{color:var(--muted);font-size:10px;margin:12px 0}.menu-item-photo img,.hero-image,.favourite-photo img,.gallery-main img,.gallery-small img{width:100%;height:100%;object-fit:cover;display:block}.hero-image-wrap img{position:absolute;inset:0}.review-orbit-card{cursor:pointer}.review-globe-stage{touch-action:pan-y}.review-expanded-card{z-index:5}.mobile-order-bar{z-index:20}.menu-empty{padding:40px 0;color:var(--muted)}.image-disclaimer{font-size:10px;line-height:1.8;color:#a99b88;margin-top:16px}.rating-not-provided{font-size:10px;letter-spacing:.02em;color:#c8b99f}.review-rating-display{justify-content:center}.review-source-link{color:var(--gold-bright);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){.menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}.menu-item-copy{padding:12px}.menu-item h3{font-size:16px}.review-globe-stage{height:520px}.review-globe{--review-radius:180px}.review-globe-lines{width:360px;height:360px}.review-globe-halo{width:420px;height:420px}.review-globe-core{width:140px;height:140px}.review-orbit-card{width:112px;min-height:74px}.menu-topline{gap:24px}.menu-stamp{display:none}}
+@media(max-width:430px){.menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.menu-item h3{font-size:14px}.menu-item-copy p{font-size:9px}.menu-item-meta{align-items:flex-start;flex-direction:column}.review-globe-stage{height:460px}.review-globe{--review-radius:145px}.review-globe-lines{width:300px;height:300px}.review-globe-halo{width:350px;height:350px}.review-globe-core{width:118px;height:118px}}
+</style></head><body>
+<div class="announcement"><span>✧</span><span>A little magic. A lot of flavour.</span><span class="announcement-dot"></span><span>Maharagama, Sri Lanka</span></div>
+<header class="site-header"><a href="#home" class="brand" aria-label="Hogwarts Cafe home"><span class="brand-mark">♨</span><span class="brand-copy"><span class="brand-name">Hogwarts <i>Cafe</i></span><span class="brand-location">MAHARAGAMA</span></span></a><button class="mobile-menu-toggle" id="mobileToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button><nav class="main-nav" id="mainNav"><a href="#story">Our story</a><a href="#menu">The menu</a><a href="#gallery">Gallery</a><a href="#reviews">Reviews</a><a href="#visit">Find us</a><a class="nav-cta" href="#menu">Explore menu ↗</a></nav></header>
+<main>
+<section class="hero" id="home"><div class="hero-image-wrap"><img class="hero-image" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=85" alt="Warm atmospheric cafe interior" fetchpriority="high"></div><div class="hero-shade"></div><div class="hero-content page-gutter"><p class="eyebrow"><span class="eyebrow-line"></span> GOOD FOOD, GOOD COMPANY <span class="eyebrow-line"></span></p><h1>A little <em>magic.</em><br>A lot of flavour.</h1><p class="hero-description">From crispy bites and comforting kottu to burgers, cool drinks and sweet little treats — there's always something worth gathering around.</p><div class="hero-actions"><a class="button button-gold" href="#menu">Discover the menu ↘</a><a class="button button-quiet" href="#visit">Visit our café ↗</a></div><div class="hero-note"><span class="hero-note-icon">✧</span><span>A welcoming corner in the heart of Maharagama</span></div></div><div class="hero-index"><span>01</span><span class="hero-index-rule"></span><span>HOGWARTS CAFE</span></div><a class="scroll-cue" href="#story"><span>SCROLL TO DISCOVER</span> ↘</a></section>
+<section class="intro section-pad" id="story"><div class="intro-kicker"><span class="small-star">✳</span> MORE THAN A MEAL</div><div class="intro-grid"><h2>A place to pause.<br>A reason to <em>stay.</em></h2><div class="intro-copy"><p>Some days call for a quick bite. Others deserve a table full of favourites. Hogwarts Cafe brings together comforting local flavours, café classics and refreshing drinks in one easygoing place.</p><a class="text-link" href="#menu">Find your favourite ↗</a></div></div><div class="feature-strip"><div class="feature-item"><span class="feature-number">01</span><span>Local favourites</span><span class="feature-symbol">✳</span></div><div class="feature-item"><span class="feature-number">02</span><span>Comfort food</span><span class="feature-symbol">✳</span></div><div class="feature-item"><span class="feature-number">03</span><span>Cool sips & sweet treats</span><span class="feature-symbol">✳</span></div></div></section>
+<section class="favourites section-pad"><div class="section-heading"><div><p class="eyebrow eyebrow-dark"><span class="eyebrow-line"></span> A FEW CROWD FAVOURITES</p><h2>Made for your <em>cravings.</em></h2></div><a class="text-link" href="#menu">Browse the menu ↗</a></div><div class="favourite-grid"><article class="favourite-card favourite-card-tall"><div class="favourite-photo"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=85" alt="Pizza with toppings" loading="lazy"><span class="photo-label">THE CROWD PLEASER</span></div><div class="favourite-caption"><div><span class="card-index">01 / PIZZA</span><h3>Share a little slice.</h3></div><span>↗</span></div></article><article class="favourite-card"><div class="favourite-photo"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85" alt="Burger with fresh toppings" loading="lazy"><span class="photo-label">A CLASSIC FAVOURITE</span></div><div class="favourite-caption"><div><span class="card-index">02 / BURGERS</span><h3>Big bite energy.</h3></div><span>↗</span></div></article><article class="favourite-card"><div class="favourite-photo"><img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=900&q=85" alt="Creamy milkshake" loading="lazy"><span class="photo-label">SOMETHING TO SIP</span></div><div class="favourite-caption"><div><span class="card-index">03 / DRINKS</span><h3>Pour on the good mood.</h3></div><span>↗</span></div></article></div><p class="image-disclaimer">Food and café photos are illustrative stock imagery, not verified photographs of this exact café or its dishes.</p></section>
+<section class="menu-section section-pad" id="menu"><div class="menu-topline"><div><p class="eyebrow"><span class="eyebrow-line"></span> SOMETHING FOR EVERY CRAVING</p><h2>The <em>menu.</em></h2><p class="menu-intro">Browse café favourites with online-listed prices. Delivery-platform and dine-in prices may differ.</p><div class="menu-order-links"><a href="https://ordernow.lk/menu/hogwarts-cafe/" target="_blank" rel="noopener">Order via OrderNow ↗</a><a href="https://www.ubereats.com/lk/store/hogwarts-cafe-maharagama-maharagama/Im_itMkAS26q__kqeGIMHw" target="_blank" rel="noopener">Order via Uber Eats ↗</a></div></div><div class="menu-stamp"><span>✧</span><span>GOOD THINGS<br>ARE ON THE MENU</span></div></div><div class="menu-controls"><div class="category-list" id="categoryList" role="group" aria-label="Filter menu by category"></div><label class="menu-search"><span aria-hidden="true">⌕</span><span class="sr-only">Search menu</span><input type="search" id="menuSearch" placeholder="Search dishes and drinks…" autocomplete="off"></label></div><p class="menu-count" id="menuCount" aria-live="polite"></p><div class="menu-grid" id="menuGrid"></div><p class="menu-footnote">Menu names and prices are based on the supplied menu. Prices and availability can change; please confirm with the café. Photos are illustrative stock images selected by food category, not exact photographs of each dish.</p></section>
+<section class="experience section-pad" id="gallery"><div class="experience-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> THE HOGWARTS EXPERIENCE</p><h2>Come for the food.<br><em>Make a moment of it.</em></h2></div><p>Catch up, take a break, celebrate something small — the best moments are often the simplest ones.</p></div><div class="experience-gallery"><div class="gallery-main"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=85" alt="Atmospheric café interior" loading="lazy"><span class="gallery-caption">A TABLE FOR YOUR KIND OF DAY</span></div><div class="gallery-side"><div class="gallery-small"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=85" alt="Coffee served in a café" loading="lazy"></div><div class="gallery-quote"><span class="quote-mark">“</span><p>Good food tastes even better when it's shared.</p><span class="quote-credit">A LITTLE CAFE WISDOM</span></div></div></div><p class="image-disclaimer">Gallery images are illustrative stock photos, not verified photos of the café.</p></section>
+<section class="review-section" id="reviews"><div class="review-inner section-pad"><div class="review-ornament">✧</div><p class="eyebrow">A NOTE FROM OUR VISITORS</p><h2 class="review-heading">Reviews in <em>every direction.</em></h2><p class="review-intro">Explore a fuller globe of short excerpts from publicly listed customer reviews. Select any tile to open its complete review excerpt.</p><div class="review-globe-stage" id="globeStage" role="region" aria-label="Interactive review globe. Drag to rotate and select a review tile." tabindex="0"><div class="review-globe-halo"></div><div class="review-globe-lines" id="globeLines"><span style="transform:rotateY(0deg)"></span><span style="transform:rotateY(20deg)"></span><span style="transform:rotateY(40deg)"></span><span style="transform:rotateY(60deg)"></span><span style="transform:rotateY(80deg)"></span><span style="transform:rotateY(100deg)"></span><span style="transform:rotateY(120deg)"></span><span style="transform:rotateY(140deg)"></span><span style="transform:rotateY(160deg)"></span><i></i></div><div class="review-globe" id="reviewGlobe"><div class="review-globe-spin-layer" id="reviewSpin"></div></div><div class="review-globe-core"><span class="review-core-orbit"></span><span style="font-size:25px">✧</span><span class="review-core-title">VISITOR<br>VOICES</span></div><div class="review-expanded-card" id="expandedReview" hidden><button class="review-close" id="closeReview" type="button" aria-label="Close review">×</button><span class="review-expanded-source">PUBLICLY LISTED REVIEW</span><div class="review-expanded-stars" id="expandedStars"></div><p class="review-expanded-quote" id="expandedQuote"></p><div class="review-expanded-footer"><span class="review-avatar" id="expandedAvatar"></span><span><strong id="expandedName"></strong><small>Google · publicly listed</small></span></div><p class="review-expanded-summary" id="expandedSummary"></p></div></div><p class="review-controls"><span class="review-live-dot"></span> ROTATING GLOBE <span>·</span> DRAG TO LOOK AROUND <span>·</span> SELECT A MESSAGE TO EXPAND</p><div class="rating-display review-rating-display"><span>4.1</span><div><div class="rating-stars" aria-label="4.1 out of 5 stars">★★★★<span>★</span></div><p>Google review excerpts · publicly listed</p></div></div><p class="review-note">The globe uses multiple short text fragments from each available review to fill out the sphere; repeated tiles lead back to the same review, not separate reviewers. Overall star ratings are shown only where provided; category-specific ratings are not treated as overall ratings.</p><a class="button button-outline" href="https://www.google.com/maps/place/Hogwarts+Cafe+Maharagama/@6.8455333,79.9318495,17.54z/data=!4m16!1m8!3m7!1s0x3ae2511c032bfe91:0xc54f71179b1ecd0e!2sHogwarts+Cafe+Maharagama!8m2!3d6.8444622!4d79.9338697!10e9!16s%2Fg%2F11tspn62cx" target="_blank" rel="noopener">Explore visitor reviews ↗</a></div></section>
+<section class="visit-section section-pad" id="visit"><div class="visit-copy"><p class="eyebrow eyebrow-dark"><span class="eyebrow-line"></span> YOUR TABLE IS OUT THERE</p><h2>Find your way<br>to <em>something good.</em></h2><p class="visit-description">Drop by Hogwarts Cafe in Maharagama for a bite, a drink or a little time out.</p><div class="visit-detail"><span class="visit-icon">⌖</span><div><strong>Come find us</strong><p>214 High Level Road,<br>Maharagama 10280, Sri Lanka</p></div></div><div class="visit-detail"><span class="visit-icon">☎</span><div><strong>Give us a call</strong><a href="tel:+94701252888">+94 70 125 2888</a><p class="detail-note">Confirm this number before launch.</p></div></div><div class="visit-detail"><span class="visit-icon">◷</span><div><strong>Opening hours</strong><p>Monday — Closed<br>Tuesday — 10 am–9:45 pm<br>Wednesday — 10 am–9:45 pm<br>Thursday — 10 am–9:45 pm<br>Friday — 10 am–9:45 pm<br>Saturday — 10 am–9:45 pm<br>Sunday — 10 am–9:45 pm</p><p class="detail-note">Listed hours can change on public holidays.</p></div></div><div class="visit-actions"><a class="button button-dark" href="https://www.google.com/maps/place/Hogwarts+Cafe+Maharagama/@6.8455333,79.9318495,17.54z/data=!4m16!1m8!3m7!1s0x3ae2511c032bfe91:0xc54f71179b1ecd0e!2sHogwarts+Cafe+Maharagama!8m2!3d6.8444622!4d79.9338697!10e9!16s%2Fg%2F11tspn62cx" target="_blank" rel="noopener">Get directions ↗</a><a class="text-link" href="tel:+94701252888">Call the café →</a></div></div><div class="map-card"><div class="map-card-top"><span class="map-pin-icon">⌖</span><div><strong>Hogwarts Cafe</strong><p>Maharagama, Sri Lanka</p></div></div><div class="map-visual"><div class="map-grid-lines"></div><div class="map-road road-one"></div><div class="map-road road-two"></div><div class="map-road road-three"></div><div class="map-road road-four"></div><div class="map-park"></div><div class="map-pin">⌖</div><span class="map-label map-label-one">HIGH LEVEL RD</span><span class="map-label map-label-two">MAHARAGAMA</span></div><a class="map-open" href="https://www.google.com/maps/place/Hogwarts+Cafe+Maharagama/@6.8455333,79.9318495,17.54z/data=!4m16!1m8!3m7!1s0x3ae2511c032bfe91:0xc54f71179b1ecd0e!2sHogwarts+Cafe+Maharagama!8m2!3d6.8444622!4d79.9338697!10e9!16s%2Fg%2F11tspn62cx" target="_blank" rel="noopener">Open in Google Maps ↗</a></div></section>
+<section class="closing-cta"><div class="closing-star">✳</div><p class="eyebrow">GOOD FOOD IS CALLING</p><h2>Your next favourite<br><em>is waiting.</em></h2><a class="button button-gold" href="#menu">Find something delicious ↗</a></section>
+</main><footer class="site-footer"><a href="#home" class="brand footer-brand"><span class="brand-mark">♨</span><span class="brand-copy"><span class="brand-name">Hogwarts <i>Cafe</i></span><span class="brand-location">MAHARAGAMA</span></span></a><p>A little magic. A lot of flavour.</p><div class="footer-links"><a href="#menu">Menu</a><a href="#gallery">Gallery</a><a href="#visit">Find us</a></div><span class="copyright">© <span id="year"></span> Hogwarts Cafe Maharagama. Details to be verified before publication.</span></footer><a class="mobile-order-bar" href="#menu">Explore the menu ↗</a>
+<script>
+const categories=["All", "Fried Rice (Basmathi)", "Budget (Chicken)", "Nasigurang", "Noodles", "Chopsuey Noodles", "Chopsuey Rice", "Cheese Kottu", "Cheese Pasta", "Burgers", "Submarines", "Sandwiches", "Hot Butter", "Devilled", "චූටි Bite (Small Bites)", "Omelettes", "Desserts", "Juices", "Milkshakes", "Bubble Shakes", "Mojitos", "Sweets", "Others (Drinks)", "Extra"];
+const menuItems=[{"name":"Chicken Fried Rice","category":"Fried Rice (Basmathi)","description":"A Hogwarts Cafe menu favourite.","price":1600,"image":"https://images.pexels.com/photos/34668501/pexels-photo-34668501.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Mix Fried Rice","category":"Fried Rice (Basmathi)","description":"A Hogwarts Cafe menu favourite.","price":2300,"image":"https://images.pexels.com/photos/11299745/pexels-photo-11299745.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Seafood Fried Rice","category":"Fried Rice (Basmathi)","description":"A Hogwarts Cafe menu favourite.","price":2100,"image":"https://images.pexels.com/photos/36998847/pexels-photo-36998847.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Cashew Fried Rice","category":"Fried Rice (Basmathi)","description":"A Hogwarts Cafe menu favourite.","price":2100,"image":"https://tb-static.uber.com/prod/image-proc/processed_images/aa11bc271bbff7a5c02556b732861764/4218ca1d09174218364162cd0b1a8cc1.jpeg"},{"name":"Egg Fried Rice","category":"Fried Rice (Basmathi)","description":"A Hogwarts Cafe menu favourite.","price":1500,"image":"https://images.pexels.com/photos/28573021/pexels-photo-28573021.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Vegi Fried Rice","category":"Fried Rice (Basmathi)","description":"A Hogwarts Cafe menu favourite.","price":1400,"image":"https://images.pexels.com/photos/16659408/pexels-photo-16659408.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Hogwarts Special Rice","category":"Fried Rice (Basmathi)","description":"A Hogwarts Cafe menu favourite.","price":3000,"image":"https://images.deliveryhero.io/image/global-menu-service/TB_AE/vendor/739989/product/548904807/75a9414a-c83f-4ec2-828a-8fcc89f39efe.jpg"},{"name":"Budget Rice (Basmati)","category":"Budget (Chicken)","description":"A Hogwarts Cafe menu favourite.","price":990,"image":"https://images.pexels.com/photos/34668502/pexels-photo-34668502.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Budget Kottu","category":"Budget (Chicken)","description":"A Hogwarts Cafe menu favourite.","price":990,"image":"https://cdn.pixabay.com/photo/2021/06/10/02/17/kottu-6324777_1280.jpg"},{"name":"Budget Noodles","category":"Budget (Chicken)","description":"A Hogwarts Cafe menu favourite.","price":990,"image":"https://images.pexels.com/photos/35774530/pexels-photo-35774530.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Budget Pasta Kottu","category":"Budget (Chicken)","description":"A Hogwarts Cafe menu favourite.","price":990,"image":"https://images.pexels.com/photos/37165674/pexels-photo-37165674.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Budget Nasigoreng","category":"Budget (Chicken)","description":"A Hogwarts Cafe menu favourite.","price":1290,"image":"https://images.pexels.com/photos/37073151/pexels-photo-37073151.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Budget Cheese Kottu","category":"Budget (Chicken)","description":"A Hogwarts Cafe menu favourite.","price":1290,"image":"https://mrkottu.vercel.app/cheesy-kottu-street-food.png"},{"name":"Budget Cheese Pasta","category":"Budget (Chicken)","description":"A Hogwarts Cafe menu favourite.","price":1290,"image":"https://images.pexels.com/photos/31769302/pexels-photo-31769302.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Chicken Nasigurang","category":"Nasigurang","description":"A Hogwarts Cafe menu favourite.","price":1800,"image":"https://www.pastimahiyangana.lk/images/menu/nasi-goreng/chicken-nasigoreng.webp"},{"name":"Seafood Nasigurang","category":"Nasigurang","description":"A Hogwarts Cafe menu favourite.","price":2100,"image":"https://images.pexels.com/photos/31299650/pexels-photo-31299650.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Mix Nasigurang","category":"Nasigurang","description":"A Hogwarts Cafe menu favourite.","price":2300,"image":"https://www.takeaway.com/be/foodwiki/uploads/sites/2/2017/05/nasi-goreng-2-1080x960.jpg"},{"name":"Hogwarts Special Nasigoreng","category":"Nasigurang","description":"A Hogwarts Cafe menu favourite.","price":3000,"image":"https://images.pexels.com/photos/23897674/pexels-photo-23897674.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Chicken Noodles","category":"Noodles","description":"A Hogwarts Cafe menu favourite.","price":1500,"image":"https://images.pexels.com/photos/1815898/pexels-photo-1815898.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Seafood Noodles","category":"Noodles","description":"A Hogwarts Cafe menu favourite.","price":2100,"image":"https://images.pexels.com/photos/3727197/pexels-photo-3727197.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Cashew Noodles","category":"Noodles","description":"A Hogwarts Cafe menu favourite.","price":2000,"image":"https://www.arise-app.com/images/dishes/de/gebratene-nudeln-mit-gemuse-und-cashewkernen-1215du.webp"},{"name":"Mix Noodles","category":"Noodles","description":"A Hogwarts Cafe menu favourite.","price":2300,"image":"https://images.pexels.com/photos/36617968/pexels-photo-36617968.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Vegi Noodles","category":"Noodles","description":"A Hogwarts Cafe menu favourite.","price":1300,"image":"https://images.pexels.com/photos/40263070/pexels-photo-40263070.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Egg Noodles","category":"Noodles","description":"A Hogwarts Cafe menu favourite.","price":1400,"image":"https://snapcalorie-webflow-website.s3.us-east-2.amazonaws.com/media/food_pics_v2/medium/eggs_noodles.jpg"},{"name":"Hogwarts Special Noodles","category":"Noodles","description":"A Hogwarts Cafe menu favourite.","price":2900,"image":"https://images.pexels.com/photos/3926135/pexels-photo-3926135.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Vegetable Chopsuey Noodles","category":"Chopsuey Noodles","description":"A Hogwarts Cafe menu favourite.","price":1700,"image":"https://images.pexels.com/photos/31261505/pexels-photo-31261505.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Chicken Chopsuey Noodles","category":"Chopsuey Noodles","description":"A Hogwarts Cafe menu favourite.","price":2000,"image":"https://images.pexels.com/photos/26207779/pexels-photo-26207779.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Cashew Chopsuey Noodles","category":"Chopsuey Noodles","description":"A Hogwarts Cafe menu favourite.","price":2500,"image":"https://images.pexels.com/photos/26207784/pexels-photo-26207784.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Seafood Chopsuey Noodles","category":"Chopsuey Noodles","description":"A Hogwarts Cafe menu favourite.","price":2500,"image":"https://images.pexels.com/photos/23340107/pexels-photo-23340107.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Mix Chopsuey Noodles","category":"Chopsuey Noodles","description":"A Hogwarts Cafe menu favourite.","price":2800,"image":"https://images.pexels.com/photos/18553456/pexels-photo-18553456.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"HOGWARTS SPECIAL Chopsuey Noodles","category":"Chopsuey Noodles","description":"A Hogwarts Cafe menu favourite.","price":3300,"image":"https://images.pexels.com/photos/5688249/pexels-photo-5688249.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Vegetable Chopsuey Rice","category":"Chopsuey Rice","description":"A Hogwarts Cafe menu favourite.","price":1700,"image":"https://images.pexels.com/photos/10695967/pexels-photo-10695967.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Chicken Chopsuey Rice","category":"Chopsuey Rice","description":"A Hogwarts Cafe menu favourite.","price":2000,"image":"https://images.pexels.com/photos/6120236/pexels-photo-6120236.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Cashew Chopsuey Rice","category":"Chopsuey Rice","description":"A Hogwarts Cafe menu favourite.","price":2500,"image":"https://images.pexels.com/photos/5337730/pexels-photo-5337730.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Seafood Chopsuey Rice","category":"Chopsuey Rice","description":"A Hogwarts Cafe menu favourite.","price":2500,"image":"https://ordernow.lk/uploads/1_1699017546Seafood-Chopsuey-2-DSC07925.jpg"},{"name":"Mix Chopsuey Rice","category":"Chopsuey Rice","description":"A Hogwarts Cafe menu favourite.","price":2800,"image":"https://images.pexels.com/photos/28503586/pexels-photo-28503586.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"HOGWARTS SPECIAL Chopsuey Rice","category":"Chopsuey Rice","description":"A Hogwarts Cafe menu favourite.","price":3300,"image":"https://www.grandchancellor.lk/wp-content/uploads/2023/04/7-1.jpg"},{"name":"Chicken Cheese Kottu","category":"Cheese Kottu","description":"A Hogwarts Cafe menu favourite.","price":1800,"image":"https://images.pexels.com/photos/34628054/pexels-photo-34628054.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Mix Cheese Kottu","category":"Cheese Kottu","description":"A Hogwarts Cafe menu favourite.","price":2300,"image":"https://images.pexels.com/photos/39853059/pexels-photo-39853059.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Seafood Cheese Kottu","category":"Cheese Kottu","description":"A Hogwarts Cafe menu favourite.","price":2200,"image":"https://www.pastimahiyangana.lk/images/menu/kottu/seafood-cheese-kottu.webp"},{"name":"Veg Cheese Kottu","category":"Cheese Kottu","description":"A Hogwarts Cafe menu favourite.","price":1500,"image":"https://images.pexels.com/photos/36982103/pexels-photo-36982103.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Egg Cheese Kottu","category":"Cheese Kottu","description":"A Hogwarts Cafe menu favourite.","price":1700,"image":"https://images.pexels.com/photos/27356714/pexels-photo-27356714.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Chicken Cheese Pasta","category":"Cheese Pasta","description":"A Hogwarts Cafe menu favourite.","price":1700,"image":"https://snapcalorie-webflow-website.s3.us-east-2.amazonaws.com/media/food_pics_v2/medium/chicken_cheese_pasta.jpg"},{"name":"Mix Cheese Pasta","category":"Cheese Pasta","description":"A Hogwarts Cafe menu favourite.","price":2300,"image":"https://images.pexels.com/photos/40297838/pexels-photo-40297838.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Seafood Cheese Pasta","category":"Cheese Pasta","description":"A Hogwarts Cafe menu favourite.","price":2200,"image":"https://images.getbento.com/accounts/a0d4e7030be00b574ca61bbba86dcfe7/media/images/59693itakitchen.jpg?auto=compress%2Cformat&cs=origin&fit=crop&h=562&w=1000"},{"name":"Veg Cheese Pasta","category":"Cheese Pasta","description":"A Hogwarts Cafe menu favourite.","price":1500,"image":"https://dy3rma73kowlp.cloudfront.net/uploads/2025/11/Homemade-Veg-Cheese-Pasta-Recipe-768x512.jpg"},{"name":"Egg Cheese Pasta","category":"Cheese Pasta","description":"A Hogwarts Cafe menu favourite.","price":1700,"image":"https://images.pexels.com/photos/35225535/pexels-photo-35225535.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Crispy Chicken Burger","category":"Burgers","description":"A Hogwarts Cafe menu favourite.","price":1600,"image":"https://images.pexels.com/photos/19737927/pexels-photo-19737927.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Chicken Burger","category":"Burgers","description":"A Hogwarts Cafe menu favourite.","price":1400,"image":"https://images.pexels.com/photos/16962426/pexels-photo-16962426.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Egg Burger","category":"Burgers","description":"A Hogwarts Cafe menu favourite.","price":1300,"image":"https://images.pexels.com/photos/2293534/pexels-photo-2293534.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Vegi Burger","category":"Burgers","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/28636771/pexels-photo-28636771.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Vegi Cheese Burger","category":"Burgers","description":"A Hogwarts Cafe menu favourite.","price":1200,"image":"https://images.pexels.com/photos/20525756/pexels-photo-20525756.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Crispy Chicken Submarine","category":"Submarines","description":"A Hogwarts Cafe menu favourite.","price":1700,"image":"https://images.pexels.com/photos/7962694/pexels-photo-7962694.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Spicy Chicken Submarine","category":"Submarines","description":"A Hogwarts Cafe menu favourite.","price":1700,"image":"https://images.pexels.com/photos/36501098/pexels-photo-36501098.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Vegi Cheese Submarine","category":"Submarines","description":"A Hogwarts Cafe menu favourite.","price":1400,"image":"https://images.pexels.com/photos/31176100/pexels-photo-31176100.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Egg Submarine","category":"Submarines","description":"A Hogwarts Cafe menu favourite.","price":1500,"image":"https://images.pexels.com/photos/19202827/pexels-photo-19202827.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Vegi Submarine","category":"Submarines","description":"A Hogwarts Cafe menu favourite.","price":1200,"image":"https://images.pexels.com/photos/30346820/pexels-photo-30346820.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Club Sandwich","category":"Sandwiches","description":"A Hogwarts Cafe menu favourite.","price":1300,"image":"https://images.pexels.com/photos/31768243/pexels-photo-31768243.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Cheese Sandwich","category":"Sandwiches","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/5419221/pexels-photo-5419221.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Hot Butter Cuttlefish","category":"Hot Butter","description":"A Hogwarts Cafe menu favourite.","price":2000,"image":"https://images.pexels.com/photos/8696536/pexels-photo-8696536.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Hot Butter Prawns","category":"Hot Butter","description":"A Hogwarts Cafe menu favourite.","price":2000,"image":"https://images.pexels.com/photos/30749018/pexels-photo-30749018.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Hot Butter Mushroom","category":"Hot Butter","description":"A Hogwarts Cafe menu favourite.","price":1400,"image":"https://images.pexels.com/photos/14883752/pexels-photo-14883752.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Hot Butter Onion Rings","category":"Hot Butter","description":"A Hogwarts Cafe menu favourite.","price":1200,"image":"https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Chicken Devilled","category":"Devilled","description":"A Hogwarts Cafe menu favourite.","price":1900,"image":"https://images.pexels.com/photos/27565826/pexels-photo-27565826.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Prawns Devilled","category":"Devilled","description":"A Hogwarts Cafe menu favourite.","price":2100,"image":"https://images.pexels.com/photos/27562876/pexels-photo-27562876.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Sausage Devilled","category":"Devilled","description":"A Hogwarts Cafe menu favourite.","price":1600,"image":"https://images.pexels.com/photos/25390056/pexels-photo-25390056.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Chicken Fries","category":"චූටි Bite (Small Bites)","description":"A Hogwarts Cafe menu favourite.","price":1900,"image":"https://images.pexels.com/photos/36863581/pexels-photo-36863581.jpeg?auto=compress&cs=tinysrgb&w=1200"},{"name":"Kochchi Bite","category":"චූටි Bite (Small Bites)","description":"A Hogwarts Cafe menu favourite.","price":1600,"image":"https://images.pexels.com/photos/6036950/pexels-photo-6036950.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Fried Cashew","category":"චූටි Bite (Small Bites)","description":"A Hogwarts Cafe menu favourite.","price":1800,"image":"https://images.pexels.com/photos/5472144/pexels-photo-5472144.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Vegetable Omelette","category":"Omelettes","description":"A Hogwarts Cafe menu favourite.","price":1000,"image":"https://www.gutekueche.at/storage/media/recipe/166530/conv/gemueseomelette-default.jpg"},{"name":"Cheese Omelette","category":"Omelettes","description":"A Hogwarts Cafe menu favourite.","price":1200,"image":"https://custom.khaba.co.uk/uploads/Ommlete/Cheese%20omelette.png"},{"name":"Chicken Omelette","category":"Omelettes","description":"A Hogwarts Cafe menu favourite.","price":1300,"image":"https://images.pexels.com/photos/4869425/pexels-photo-4869425.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Seafood Omelette","category":"Omelettes","description":"A Hogwarts Cafe menu favourite.","price":1400,"image":"https://images.pexels.com/photos/31821665/pexels-photo-31821665.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Mix Omelette","category":"Omelettes","description":"A Hogwarts Cafe menu favourite.","price":1400,"image":"https://images.pexels.com/photos/39955589/pexels-photo-39955589.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Strawberry Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":900,"image":"https://static.stacker.com/s3fs-public/styles/slide_desktop/s3/1956YP4.jpg"},{"name":"Chocolate Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":900,"image":"https://images.pexels.com/photos/14132776/pexels-photo-14132776.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Vanilla Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":900,"image":"https://images.pexels.com/photos/13804828/pexels-photo-13804828.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Butter Scotch Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":990,"image":"https://images.pexels.com/photos/38987552/pexels-photo-38987552.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Fruit and Nut Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":990,"image":"https://images.pexels.com/photos/23531335/pexels-photo-23531335.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Mango Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/36868226/pexels-photo-36868226.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Cool Mint Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/16015237/pexels-photo-16015237.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Salted Caramel Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/22484685/pexels-photo-22484685.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Cookie Dough Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/9227971/pexels-photo-9227971.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Rocky Road Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/39296214/pexels-photo-39296214.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Passion Fruit Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/4397050/pexels-photo-4397050.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Coconut & Jaggery Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/8004630/pexels-photo-8004630.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Cookie Espresso Ice Cream","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/2835351/pexels-photo-2835351.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Watalappan","category":"Desserts","description":"A Hogwarts Cafe menu favourite.","price":700,"image":"https://images.pexels.com/photos/32972553/pexels-photo-32972553.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Avocado Juice","category":"Juices","description":"A Hogwarts Cafe menu favourite.","price":800,"image":"https://images.pexels.com/photos/11009209/pexels-photo-11009209.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Mango Juice","category":"Juices","description":"A Hogwarts Cafe menu favourite.","price":800,"image":"https://images.pexels.com/photos/16724962/pexels-photo-16724962.jpeg?auto=compress&cs=tinysrgb&w=1200"},{"name":"Passion Fruit Juice","category":"Juices","description":"A Hogwarts Cafe menu favourite.","price":800,"image":"https://images.pexels.com/photos/16444397/pexels-photo-16444397.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Lime Juice","category":"Juices","description":"A Hogwarts Cafe menu favourite.","price":800,"image":"https://images.pexels.com/photos/35827838/pexels-photo-35827838.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Anoda Juice","category":"Juices","description":"A Hogwarts Cafe menu favourite.","price":800,"image":"https://images.pexels.com/photos/4393012/pexels-photo-4393012.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Wood Apple Juice","category":"Juices","description":"A Hogwarts Cafe menu favourite.","price":800,"image":"https://images.pexels.com/photos/11789745/pexels-photo-11789745.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Orange Juice","category":"Juices","description":"A Hogwarts Cafe menu favourite.","price":850,"image":"https://images.pexels.com/photos/33173889/pexels-photo-33173889.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Apple Juice","category":"Juices","description":"A Hogwarts Cafe menu favourite.","price":950,"image":"https://images.pexels.com/photos/9024809/pexels-photo-9024809.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Badam Milkshake","category":"Milkshakes","description":"A Hogwarts Cafe menu favourite.","price":750,"image":"https://images.pexels.com/photos/4869289/pexels-photo-4869289.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Milo Milkshake","category":"Milkshakes","description":"A Hogwarts Cafe menu favourite.","price":900,"image":"https://images.pexels.com/photos/17518781/pexels-photo-17518781.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Avocado Milkshake","category":"Milkshakes","description":"A Hogwarts Cafe menu favourite.","price":900,"image":"https://images.pexels.com/photos/10066814/pexels-photo-10066814.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Mango Milkshake","category":"Milkshakes","description":"A Hogwarts Cafe menu favourite.","price":900,"image":"https://images.pexels.com/photos/8813997/pexels-photo-8813997.jpeg?auto=compress&cs=tinysrgb&w=1200"},{"name":"Passion Milkshake","category":"Milkshakes","description":"A Hogwarts Cafe menu favourite.","price":900,"image":"https://images.pexels.com/photos/5817627/pexels-photo-5817627.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Chocolate Milkshake","category":"Milkshakes","description":"A Hogwarts Cafe menu favourite.","price":950,"image":"https://images.pexels.com/photos/8161428/pexels-photo-8161428.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Strawberry Milkshake","category":"Milkshakes","description":"A Hogwarts Cafe menu favourite.","price":950,"image":"https://www.projuice.co.uk/app/uploads/2020/04/Strawberry-Shake.jpg"},{"name":"Vanilla Milkshake","category":"Milkshakes","description":"A Hogwarts Cafe menu favourite.","price":950,"image":"https://images.pexels.com/photos/36925833/pexels-photo-36925833.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Faluda Milkshake","category":"Milkshakes","description":"A Hogwarts Cafe menu favourite.","price":1000,"image":"https://images.pexels.com/photos/4134385/pexels-photo-4134385.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Kit Kat Milkshake","category":"Milkshakes","description":"A Hogwarts Cafe menu favourite.","price":1250,"image":"https://img.cdn4dd.com/cdn-cgi/image/fit%3Dcontain%2Cwidth%3D1200%2Cheight%3D672%2Cformat%3Dauto/https%3A/doordash-static.s3.amazonaws.com/media/photosV2/5a950678-554b-4651-9f77-e5fb308b33e1-retina-large.jpg"},{"name":"Nutella Milkshake","category":"Milkshakes","description":"A Hogwarts Cafe menu favourite.","price":1550,"image":"https://instacuppastore.com/cdn/shop/articles/blog-nutella-milkshake-recipe-cover.jpg?v=1777809475&width=1920"},{"name":"Chocolate Bubbleshake","category":"Bubble Shakes","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/25561951/pexels-photo-25561951.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Vanilla Bubbleshake","category":"Bubble Shakes","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/36937762/pexels-photo-36937762.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Strawberry Bubbleshake","category":"Bubble Shakes","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/30759939/pexels-photo-30759939.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Milo Bubbleshake","category":"Bubble Shakes","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/31775360/pexels-photo-31775360.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Coffee Bubbleshake","category":"Bubble Shakes","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/37486096/pexels-photo-37486096.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Passion Bubbleshake","category":"Bubble Shakes","description":"A Hogwarts Cafe menu favourite.","price":1100,"image":"https://images.pexels.com/photos/37486080/pexels-photo-37486080.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Black Mojito","category":"Mojitos","description":"A Hogwarts Cafe menu favourite.","price":700,"image":"https://www.jonathangarnier.com/cdn/shop/articles/Mojito_Black_68585b07-465d-48df-b6cf-fd85e3d4915e.png?v=1751558992&width=1000"},{"name":"Virgin Mojito","category":"Mojitos","description":"A Hogwarts Cafe menu favourite.","price":700,"image":"https://images.pexels.com/photos/11009206/pexels-photo-11009206.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Blueberry Mojito","category":"Mojitos","description":"A Hogwarts Cafe menu favourite.","price":750,"image":"https://images.pexels.com/photos/17612809/pexels-photo-17612809.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Strawberry Mojito","category":"Mojitos","description":"A Hogwarts Cafe menu favourite.","price":750,"image":"https://images.pexels.com/photos/36630819/pexels-photo-36630819.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Apple Mojito","category":"Mojitos","description":"A Hogwarts Cafe menu favourite.","price":750,"image":"https://images.pexels.com/photos/5817623/pexels-photo-5817623.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Passion Mojito","category":"Mojitos","description":"A Hogwarts Cafe menu favourite.","price":800,"image":"https://images.pexels.com/photos/37214597/pexels-photo-37214597.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Kit Kat Four Bar","category":"Sweets","description":"A Hogwarts Cafe menu favourite.","price":600,"image":"https://www.hancocks.co.uk/_next/image?q=75&url=https%3A%2F%2Fapi.hancocks.co.uk%2Fmedia%2Fcatalog%2Fproduct%2F9%2F2%2F92950_na.jpg&w=3840"},{"name":"Water Bottle","category":"Others (Drinks)","description":"A Hogwarts Cafe menu favourite.","price":150,"image":"https://images.pexels.com/photos/327090/pexels-photo-327090.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"EGB Cup","category":"Others (Drinks)","description":"A Hogwarts Cafe menu favourite.","price":280,"image":"https://images.pexels.com/photos/8879626/pexels-photo-8879626.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Pepsi Cup","category":"Others (Drinks)","description":"A Hogwarts Cafe menu favourite.","price":280,"image":"https://images.pexels.com/photos/15205136/pexels-photo-15205136.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Coca Cola Cup","category":"Others (Drinks)","description":"A Hogwarts Cafe menu favourite.","price":280,"image":"https://moop.lv/cdn/shop/files/36905.jpg?v=1775748577&width=1445"},{"name":"Sprite Cup","category":"Others (Drinks)","description":"A Hogwarts Cafe menu favourite.","price":280,"image":"https://www.pngfind.com/pngs/m/136-1361338_sprite-png-sprite-transparent-png.png"},{"name":"Fanta Cup","category":"Others (Drinks)","description":"A Hogwarts Cafe menu favourite.","price":280,"image":"https://getraenke-augsburg.de/371-thickbox_default/fanta-orange-050-pet.jpg"},{"name":"Portello Cup","category":"Others (Drinks)","description":"A Hogwarts Cafe menu favourite.","price":280,"image":"https://findit-resources.s3.amazonaws.com/trending_items/1663314661500.jpeg"},{"name":"Seven Up Cup","category":"Others (Drinks)","description":"A Hogwarts Cafe menu favourite.","price":280,"image":"https://dvago-assets.s3.ap-southeast-1.amazonaws.com/ProductsImages/01344.jpg"},{"name":"Ice Coffee","category":"Others (Drinks)","description":"A Hogwarts Cafe menu favourite.","price":800,"image":"https://images.pexels.com/photos/8883456/pexels-photo-8883456.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Extra Sauce Packet","category":"Extra","description":"A Hogwarts Cafe menu favourite.","price":60,"image":"https://images.pexels.com/photos/25390053/pexels-photo-25390053.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Extra Chilipaste Cup","category":"Extra","description":"A Hogwarts Cafe menu favourite.","price":120,"image":"https://images.pexels.com/photos/7166546/pexels-photo-7166546.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"},{"name":"Extra Egg (Bulls Eye)","category":"Extra","description":"A Hogwarts Cafe menu favourite.","price":120,"image":"https://images.pexels.com/photos/10720381/pexels-photo-10720381.jpeg?auto=compress&cs=tinysrgb&w=1400&q=88"}];
+const reviews=[
+{name:"Irshad JM",rating:null,quote:"Food is tasty and portion also considerably bigger than other restaurants. Staff are helpful and explain the details in full.",summary:"Praised the tasty food, generous portions and helpful staff, while suggesting tables should be cleaned more quickly between customers.",date:"4 months ago"},
+{name:"Vasana Gunasekera",rating:null,quote:"Had a chai tea its really tasty and superb.",summary:"Mixed feedback: praised the chai tea, but was not satisfied with the pasta kottu and portion handling.",date:"4 months ago"},
+{name:"Pasindu Nihal",rating:5,quote:"They have so many delicious dishes here—you really should go and try them; the food is amazing and the service is excellent.",summary:"A very positive review praising the food, service, atmosphere and suitability for gatherings.",date:"3 weeks ago"},
+{name:"Indika Prabath",rating:5,quote:"I ordered the Mix Full Rice (Rs. 2,200), and the portion size was absolutely massive.",summary:"Praised the very generous portion size of the Mix Full Rice.",date:"4 months ago"},
+{name:"Sathish Dissanayaka",rating:null,quote:"Great food, but the service needs work.",summary:"Enjoyed the food but recommended better staff training and stronger menu knowledge.",date:"5 months ago"},
+{name:"Oshadi Madushika",rating:null,quote:"A magical experience for all Harry Potter fans! The Hogwarts themed decor and ambiance are truly captivating.",summary:"Praised the themed atmosphere, food, reasonable prices and friendly service.",date:"3 weeks ago"},
+{name:"Supun Tharaka",rating:5,quote:"Food is delicious. Price is also very reasonable with large portion sizes.",summary:"A regular hangout spot; praised the food, value, generous portions and Harry Potter details.",date:"2 months ago"},
+{name:"eshan ranawaka",rating:null,quote:"Tried the Seafood Nasi Goreng and Hot Butter Onion. The nasi was a bit spicy but tasty.",summary:"Liked the dishes and generous portions, while noting the sauce was a little heavy.",date:"7 months ago"},
+{name:"Dilmi",rating:5,quote:"The food was delicious, and the service was excellent. The manager was very welcoming, and all the staff were friendly.",summary:"Praised the food, welcoming manager and friendly, attentive staff.",date:"3 months ago"},
+{name:"Nipuna Ranasinghe",rating:5,quote:"The food quality has been consistently good every single time.",summary:"Praised consistent food quality, attentive staff, variety, reasonable prices and portions.",date:"Edited 5 months ago"},
+{name:"Isuru Dinesh",rating:null,quote:"Food was amazing. we tried Hogwarts Special rice & I really love it.",summary:"Enjoyed the themed atmosphere, Hogwarts Special rice, drinks, portions and friendly staff.",date:"2 years ago"},
+{name:"Pramoj Kumararathna",rating:null,quote:"A charming Harry Potter–themed spot with great decor and tasty food at fair prices.",summary:"Praised the decor, food and prices; noted service can slow down when crowded.",date:"11 months ago"},
+{name:"Krystal",rating:null,quote:"Vey cute harry potter style cafe. We had masala chai and a sandwich, everything was fine.",summary:"Liked the themed cafe and friendly staff, with a personal suggestion about the TV sound.",date:"9 months ago"}
+];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const categoryList=document.getElementById('categoryList'),menuGrid=document.getElementById('menuGrid'),search=document.getElementById('menuSearch'),count=document.getElementById('menuCount');let activeCategory='All';
+function renderCategories(){categoryList.innerHTML=categories.map(c=>`<button type="button" class="category-pill ${c===activeCategory?'active':''}" aria-pressed="${c===activeCategory}" data-category="${esc(c)}">${esc(c)}</button>`).join('')}
+function renderMenu(){const q=search.value.trim().toLowerCase();const filtered=menuItems.filter(x=>(activeCategory==='All'||x.category===activeCategory)&&(!q||x.name.toLowerCase().includes(q)||x.category.toLowerCase().includes(q)));count.textContent=`Showing ${filtered.length} of ${menuItems.length} menu items`;menuGrid.innerHTML=filtered.length?filtered.map((x,i)=>`<article class="menu-item"><div class="menu-item-photo"><img src="${x.image}" alt="${esc(x.name)} product or food photo" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80'"><span class="menu-item-number">${String(i+1).padStart(2,'0')} / HOGWARTS</span></div><div class="menu-item-copy"><div class="menu-item-title-row"><h3>${esc(x.name)}</h3></div><p>${esc(x.description)}</p><div class="menu-item-meta"><span class="menu-item-category">${esc(x.category)}</span><strong class="menu-item-price">${x.price==null?'Ask in store':'Rs. '+Number(x.price).toLocaleString('en-LK')}</strong></div></div></article>`).join(''):'<p class="menu-empty">No dishes found. Try another search or category.</p>'}
+categoryList.addEventListener('click',e=>{const b=e.target.closest('[data-category]');if(!b)return;activeCategory=b.dataset.category;renderCategories();renderMenu()});search.addEventListener('input',renderMenu);renderCategories();renderMenu();document.getElementById('year').textContent=new Date().getFullYear();
+const nav=document.getElementById('mainNav'),toggle=document.getElementById('mobileToggle');toggle.addEventListener('click',()=>{const open=nav.classList.toggle('is-open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'×':'☰'});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false');toggle.textContent='☰'}));
+// Interactive 3D review globe: only published review excerpts, no demo cards.
+const stage=document.getElementById('globeStage'),globe=document.getElementById('reviewGlobe'),spin=document.getElementById('reviewSpin'),expanded=document.getElementById('expandedReview');let rotationX=-8,rotationY=0,drag=null,selected=null,manual=false;
+const reviewTiles=[];
+reviews.forEach((r,i)=>{
+  // Several short tiles are fragments of each existing review, not fabricated reviews.
+  const words=(r.quote+' '+r.summary).replace(/[“”]/g,'').split(/\s+/).filter(Boolean);
+  const chunks=[];
+  const stride=Math.max(4,Math.ceil(words.length/4));
+  for(let start=0;start<words.length;start+=stride){
+    const chunk=words.slice(start,start+4).join(' ').replace(/[.,;:!?]+$/,'');
+    if(chunk && !chunks.includes(chunk)) chunks.push(chunk);
+  }
+  chunks.slice(0,4).forEach(label=>reviewTiles.push({reviewIndex:i,label}));
+});
+spin.innerHTML=reviewTiles.map((tile,n)=>{const y=1-(n/(reviewTiles.length-1))*2,theta=Math.PI*(3-Math.sqrt(5))*n,lat=Math.asin(y)*180/Math.PI,lon=theta*180/Math.PI;return `<button type="button" class="review-orbit-card is-published" data-review="${tile.reviewIndex}" style="transform:rotateY(${lon}deg) rotateX(${-lat}deg) translateZ(var(--review-radius))" aria-label="Open review excerpt from ${esc(reviews[tile.reviewIndex].name)}"><span class="review-tile-message">${esc(tile.label)}</span></button>`}).join('');
+function applyRotation(){globe.style.transform=`rotateX(${rotationX}deg) rotateY(${rotationY}deg)`}function showReview(i){selected=i;const r=reviews[i];expanded.hidden=false;stage.classList.add('is-review-open');document.getElementById('expandedStars').innerHTML=r.rating===null?'<span class=\"rating-not-provided\">Rating not shown in supplied review</span>':'★'.repeat(r.rating)+'<span>'+'★'.repeat(5-r.rating)+'</span>';document.getElementById('expandedQuote').textContent='“'+r.quote+'”';document.getElementById('expandedName').textContent=r.name;document.getElementById('expandedAvatar').textContent=r.name.charAt(0);document.getElementById('expandedSummary').textContent=r.summary}
+spin.addEventListener('click',e=>{const b=e.target.closest('[data-review]');if(b)showReview(Number(b.dataset.review))});function closeReview(){selected=null;expanded.hidden=true;stage.classList.remove('is-review-open')}document.getElementById('closeReview').addEventListener('click',closeReview);
+stage.addEventListener('pointerdown',e=>{if(selected!==null||e.target.closest('button'))return;drag={x:e.clientX,y:e.clientY,rx:rotationX,ry:rotationY};manual=true;stage.setPointerCapture?.(e.pointerId)});stage.addEventListener('pointermove',e=>{if(!drag)return;rotationX=Math.max(-70,Math.min(70,drag.rx-(e.clientY-drag.y)*.45));rotationY=drag.ry+(e.clientX-drag.x)*.45;applyRotation()});['pointerup','pointercancel','lostpointercapture'].forEach(ev=>stage.addEventListener(ev,()=>drag=null));stage.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();manual=true;rotationX=Math.max(-70,Math.min(70,rotationX+(e.key==='ArrowUp'?-12:e.key==='ArrowDown'?12:0)));rotationY+=(e.key==='ArrowLeft'?-18:e.key==='ArrowRight'?18:0);applyRotation()}});applyRotation();
+</script><!-- Menu images updated to clearer high-resolution external sources; Pexels assets are served via the Pexels image CDN. The kottu reference photo is from Pixabay. -->
+</body></html>
